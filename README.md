@@ -7,7 +7,7 @@ Software now acts for us, moving our plans between apps and writing code beside 
 | | |
 |---|---|
 | **Recast**: the context layer between your apps | Select what matters on any page (a person, a time, a place), press the pieces into one object, see exactly what will happen, place it in Google Calendar, Gmail, Tasks, Docs, GitHub or Linear, and Recast reads it back to prove it landed. |
-| **Relay**: the integration trust layer for people and coding agents | Two changes can each pass their own tests and still break the project together. Relay rehearses them together before anything is applied, blocks the break, and explains the cause. |
+| **Relay**: the integration trust layer for people and coding agents | Everyone working in a repository shows up for each other, no invites. Each works in a private session and ships to main. Two changes can each pass their own tests and still break the project together: Relay rehearses them together before anything is applied, blocks the break, and explains the cause. |
 
 ## Try it
 
@@ -30,7 +30,9 @@ Software now acts for us, moving our plans between apps and writing code beside 
 | **Verify** | **Repeat** |
 | ![Read back from the calendar: 5 of 5 fields match](assets/img/recast-05-readback.png) | ![Saved as a personal workflow](assets/img/recast-06-saved.png) |
 
-## Relay in two pictures
+## Relay in three pictures
+
+![Relay's welcome: who is in this repository right now, whether main has moved, and Start a private session](assets/img/relay-team.png)
 
 | Coordination | Collaboration |
 |---|---|
@@ -46,6 +48,8 @@ We say exactly what has been proven and against what.
 | Recast runs as a Chrome extension and a desktop app (Mac, Windows, Linux), with an API, SDK and MCP server | Automated tests in real Chromium and Electron on Linux; more than a thousand automated tests in all; Mac and Windows builds made by CI |
 | Relay blocks combined breaks before they reach the project | Real Claude Code agents: blocked in 6 of 6 trials; without Relay the break shipped in 6 of 6 |
 | Relay explains the cause | "Confirmed" and accurate in 3 of 3 real-agent trials, judged by running the code |
+| Relay team presence (no invites) and private sessions that ship to main | Automated tests on one machine; not yet two real computers |
+| Relay desktop app for Mac, Windows and Linux, updating itself | Built; not yet run on real hardware |
 | Use by independent people and teams | **Not yet.** That is the next milestone. |
 
 ## About this repository
