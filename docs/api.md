@@ -2,12 +2,12 @@
 
 What developers and AI agents can call. This page describes the interfaces only; the implementation is private.
 
-> **Availability.** The Recast API is built and tested end to end over real HTTP, but it is **not publicly hosted yet**. Access for design partners is by request (see the [README](../README.md#contact)). Relay runs on your own machine or server.
+> **Availability.** The Recast API is built and tested end to end over real HTTP, but it is **not publicly hosted yet**. Access for design partners is by request (see the [README](../README.md#contact)). Syncord runs on your own machine or server.
 
 - [Recast API](#recast-api): turn raw text into typed objects, and place them in apps
 - [Recast SDK](#recast-sdk-typescript): a typed TypeScript client
 - [Recast MCP server](#recast-mcp-server): Recast as tools for AI agents
-- [Relay](#relay): command line, HTTP API and agent tools
+- [Syncord](#relay): command line, HTTP API and agent tools
 
 ---
 
@@ -131,9 +131,9 @@ Both are read-only: an agent can understand and route, but placing stays a separ
 
 ---
 
-## Relay
+## Syncord
 
-Relay runs next to your repository. Three ways in, one engine behind them: they cannot disagree about a result.
+Syncord runs next to your repository. Three ways in, one engine behind them: they cannot disagree about a result.
 
 ### Command line
 
@@ -142,7 +142,7 @@ relay contract propose user-api --definition "getUser(id) -> {id, fullName}" --a
 relay task create T-api --objective "API returns fullName" --scope src/server.js --contract user-api@1 --verify "npm test"
 relay task approve T-api
 relay agent-config claude-code --task T-api --root "$PWD" --out /tmp/relay-T-api   # a guarded agent session
-relay check T-api && relay verify T-api                                            # Relay's own evidence
+relay check T-api && relay verify T-api                                            # Syncord's own evidence
 relay integrate together T-api,T-ui                                                # Check Together; never applies
 ```
 
@@ -159,4 +159,4 @@ relay integrate together T-api,T-ui                                             
 
 ### Tools for coding agents (MCP)
 
-An agent session is bound to one task. It gets coordination tools such as `claim_task`, `get_task`, `get_contract`, `declare_intent`, `report_evidence` and `submit_for_review`. It gets no file, shell, merge or approval access through Relay: approving and applying are for people only. A guard hook in front of the agent stops edits outside its task's scope, and fails closed.
+An agent session is bound to one task. It gets coordination tools such as `claim_task`, `get_task`, `get_contract`, `declare_intent`, `report_evidence` and `submit_for_review`. It gets no file, shell, merge or approval access through Syncord: approving and applying are for people only. A guard hook in front of the agent stops edits outside its task's scope, and fails closed.

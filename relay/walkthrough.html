@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Relay walkthrough</title>
-<meta name="description" content="Step through Relay's integration experiment: two changes that each pass their own tests break the project together. Without Relay the break ships; with Relay it is blocked and explained.">
+<title>Syncord walkthrough</title>
+<meta name="description" content="Step through Syncord's integration experiment: two changes that each pass their own tests break the project together. Without Syncord the break ships; with Syncord it is blocked and explained.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap">
@@ -44,23 +44,23 @@
 </head>
 <body>
 <header class="bar"><div class="wrap">
-  <a class="brand" href="../"><span class="dot" aria-hidden="true"></span>Recast &amp; Relay</a>
+  <a class="brand" href="../"><span class="dot" aria-hidden="true"></span>Recast &amp; Syncord</a>
   <nav class="nav" aria-label="Main">
-    <a href="../recast/">Recast</a><a href="../recast/demo/">Try Recast</a><a href="./">Relay</a><a href="walkthrough.html" aria-current="page">Relay walkthrough</a><a href="https://github.com/shishirbhat/recast-and-relay/blob/main/docs/how-it-works.md">How it works</a><a href="https://github.com/shishirbhat/recast-and-relay/blob/main/docs/api.md">API</a>
+    <a href="../recast/">Recast</a><a href="../recast/demo/">Try Recast</a><a href="./">Syncord</a><a href="walkthrough.html" aria-current="page">Syncord walkthrough</a><a href="https://github.com/shishirbhat/recast-and-relay/blob/main/docs/how-it-works.md">How it works</a><a href="https://github.com/shishirbhat/recast-and-relay/blob/main/docs/api.md">API</a>
   </nav>
 </div></header>
 
 <main>
 <section class="hero" style="padding-bottom:24px"><div class="wrap">
-  <span class="eyebrow relay">Relay walkthrough</span>
+  <span class="eyebrow relay">Syncord walkthrough</span>
   <h1>Green, green, <em>broken</em>.</h1>
-  <p class="lede">Two coding agents each finish a task, and each passes its own tests. Step through what happens next, first without Relay and then with it. This replays Relay's recorded experiment, shortened: the project, the checks, the results and Relay's explanation are taken from it. The last step shows how it ends once the owners fix it.</p>
+  <p class="lede">Two coding agents each finish a task, and each passes its own tests. Step through what happens next, first without Syncord and then with it. This replays Syncord's recorded experiment, shortened: the project, the checks, the results and Syncord's explanation are taken from it. The last step shows how it ends once the owners fix it.</p>
 </div></section>
 
 <section style="padding-top:8px"><div class="wrap">
   <div class="modes" role="group" aria-label="Workflow">
-    <button type="button" data-mode="without" aria-pressed="true">Without Relay</button>
-    <button type="button" data-mode="with" aria-pressed="false">With Relay</button>
+    <button type="button" data-mode="without" aria-pressed="true">Without Syncord</button>
+    <button type="button" data-mode="with" aria-pressed="false">With Syncord</button>
   </div>
   <div class="stage">
     <div class="story" aria-live="polite">
@@ -80,7 +80,7 @@
   <h2>The recorded results</h2>
   <p class="lede">The same scenario with real agents (Claude Code, headless): two rounds of three trials, each trial run in both workflows from the same starting project.</p>
   <div class="table"><table>
-    <thead><tr><th></th><th>Without Relay</th><th>With Relay</th></tr></thead>
+    <thead><tr><th></th><th>Without Syncord</th><th>With Syncord</th></tr></thead>
     <tbody>
       <tr><td>Both agents' own checks passed</td><td>6 of 6</td><td>6 of 6</td></tr>
       <tr><td>Git merge conflict</td><td>none</td><td>none</td></tr>
@@ -90,8 +90,8 @@
       <tr><td>Model cost per trial</td><td>about $0.17 to $0.19</td><td>about $0.24</td></tr>
     </tbody>
   </table></div>
-  <p class="note relay" style="margin-top:20px"><b>Limits.</b> The tasks were designed to set up this conflict, in a five-file project, with one agent product. The trials show Relay catches and explains this break when it happens, not how often it happens in real projects. In one round, an agent noticed the problem and mentioned it in chat; that warning gated nothing.</p>
-  <div class="actions"><a class="btn relay" href="./">Back to Relay</a><a class="btn" href="https://github.com/shishirbhat/recast-and-relay/blob/main/docs/how-it-works.md#relay">How it works</a></div>
+  <p class="note relay" style="margin-top:20px"><b>Limits.</b> The tasks were designed to set up this conflict, in a five-file project, with one agent product. The trials show Syncord catches and explains this break when it happens, not how often it happens in real projects. In one round, an agent noticed the problem and mentioned it in chat; that warning gated nothing.</p>
+  <div class="actions"><a class="btn relay" href="./">Back to Syncord</a><a class="btn" href="https://github.com/shishirbhat/recast-and-relay/blob/main/docs/how-it-works.md#relay">How it works</a></div>
 </div></section>
 </main>
 
@@ -120,30 +120,30 @@
         panel: () => file("src/ui.js (merged)", ui0, `<span class="badge fail">reads .name</span>`) + term(`<span class="dim">$ node --test</span>\n<span class="fail">not ok - greets the user by name</span>\n  expected 'Hello Ada'\n  actual   'Hello undefined'`) },
     ],
     with: [...shared,
-      { title: "Relay sees they are coupled", text: `<p>Both tasks depend on the same contract, <code>user-api</code>. Relay will not apply either one on its own: they must be <b>checked together</b>.</p><p>Agents cannot approve or apply anything. Only people can.</p>`,
-        panel: () => term(`<span class="badge relay">Relay</span> T-api ⇄ T-ui share contract user-api\n<span class="dim">Apply T-api alone →</span> <span class="warn">refused: check together first</span>`) },
-      { title: "Check Together: a rehearsal", text: `<p>Relay builds a separate copy of the project as it is now, adds both changes, and runs the checks itself. Evidence an agent reports does not count.</p><p>The combined test fails, so the rehearsal is <b>blocked</b>. The real project is untouched.</p>`,
-        panel: () => term(`<span class="badge relay">Relay</span> rehearsal on a combined copy (455 ms)\n<span class="dim">node --check src/server.js</span>   <span class="pass">pass</span>\n<span class="dim">node --test</span>                   <span class="fail">FAIL</span>\n  <span class="fail">not ok - greets the user by name</span>\n\n<span class="fail">BLOCKED</span>  shared project: <span class="pass">unchanged</span>`) },
-      { title: "Relay explains why", text: `<p>Relay traces the failure to its cause and labels how sure it is: <b>confirmed</b>, <b>likely</b>, or <b>unknown</b>. It never guesses.</p><p>Here it is confirmed: T-api changed <code>getUser</code> so it no longer returns <code>name</code>, and T-ui still reads it at <code>src/ui.js:4</code>. With real agents, the explanation was accurate in 3 of 3 trials.</p>`,
-        panel: () => term(`<span class="badge relay">Relay</span> Verdict: <span class="pass">confirmed</span>`) + `<div class="file"><ul class="ev">
+      { title: "Syncord sees they are coupled", text: `<p>Both tasks depend on the same contract, <code>user-api</code>. Syncord will not apply either one on its own: they must be <b>checked together</b>.</p><p>Agents cannot approve or apply anything. Only people can.</p>`,
+        panel: () => term(`<span class="badge relay">Syncord</span> T-api ⇄ T-ui share contract user-api\n<span class="dim">Apply T-api alone →</span> <span class="warn">refused: check together first</span>`) },
+      { title: "Check Together: a rehearsal", text: `<p>Syncord builds a separate copy of the project as it is now, adds both changes, and runs the checks itself. Evidence an agent reports does not count.</p><p>The combined test fails, so the rehearsal is <b>blocked</b>. The real project is untouched.</p>`,
+        panel: () => term(`<span class="badge relay">Syncord</span> rehearsal on a combined copy (455 ms)\n<span class="dim">node --check src/server.js</span>   <span class="pass">pass</span>\n<span class="dim">node --test</span>                   <span class="fail">FAIL</span>\n  <span class="fail">not ok - greets the user by name</span>\n\n<span class="fail">BLOCKED</span>  shared project: <span class="pass">unchanged</span>`) },
+      { title: "Syncord explains why", text: `<p>Syncord traces the failure to its cause and labels how sure it is: <b>confirmed</b>, <b>likely</b>, or <b>unknown</b>. It never guesses.</p><p>Here it is confirmed: T-api changed <code>getUser</code> so it no longer returns <code>name</code>, and T-ui still reads it at <code>src/ui.js:4</code>. With real agents, the explanation was accurate in 3 of 3 trials.</p>`,
+        panel: () => term(`<span class="badge relay">Syncord</span> Verdict: <span class="pass">confirmed</span>`) + `<div class="file"><ul class="ev">
 <li>getUser returns {id, name} → {id, fullName} (changed by T-api)</li>
 <li>src/ui.js imports getUser from ./server.js</li>
 <li>src/ui.js:4 reads .name, which getUser() no longer returns</li>
 <li>node --test: "greets the user by name" fails on the combined copy</li>
 <li>contract user-api v1 defines getUser → { id, fullName }</li></ul></div>` },
-      { title: "A person decides", text: `<p class="count">How it ends (illustration)</p><p>Relay does not pick a side. The task owners decide: move the screen to <code>fullName</code>, or keep <code>name</code> in the API. Then they check together again.</p><p>Only when the combined check passes, nothing has moved since, and a person approves, does Relay apply. <b>No break reached the project in 6 of 6 trials.</b></p>`,
-        panel: () => term(`<span class="dim">T-ui updated: getUser(id).fullName</span>\n<span class="badge relay">Relay</span> rehearsal again\n<span class="dim">node --test</span>   <span class="pass">pass</span>\n\n<span class="pass">PASSED</span>  waiting for a person to approve\n<span class="dim">approved → applied to the shared project</span>`) },
+      { title: "A person decides", text: `<p class="count">How it ends (illustration)</p><p>Syncord does not pick a side. The task owners decide: move the screen to <code>fullName</code>, or keep <code>name</code> in the API. Then they check together again.</p><p>Only when the combined check passes, nothing has moved since, and a person approves, does Syncord apply. <b>No break reached the project in 6 of 6 trials.</b></p>`,
+        panel: () => term(`<span class="dim">T-ui updated: getUser(id).fullName</span>\n<span class="badge relay">Syncord</span> rehearsal again\n<span class="dim">node --test</span>   <span class="pass">pass</span>\n\n<span class="pass">PASSED</span>  waiting for a person to approve\n<span class="dim">approved → applied to the shared project</span>`) },
     ],
   };
   let mode = "without", i = 0;
   const $ = (id) => document.getElementById(id);
   function render() {
     const f = flows[mode], s = f[i];
-    $("count").textContent = `${mode === "with" ? "With Relay" : "Without Relay"} · step ${i + 1} of ${f.length}`;
+    $("count").textContent = `${mode === "with" ? "With Syncord" : "Without Syncord"} · step ${i + 1} of ${f.length}`;
     $("story").innerHTML = `<h2>${s.title}</h2>${s.text}`;
     $("panel").innerHTML = s.panel();
     $("prev").disabled = i === 0;
-    $("next").textContent = i === f.length - 1 ? (mode === "without" ? "Now with Relay →" : "Start over") : "Next";
+    $("next").textContent = i === f.length - 1 ? (mode === "without" ? "Now with Syncord →" : "Start over") : "Next";
     $("dots").innerHTML = f.map((_, k) => `<span class="${k <= i ? "on" : ""}"></span>`).join("");
     document.querySelectorAll(".modes button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
   }

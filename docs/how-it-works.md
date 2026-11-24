@@ -1,9 +1,9 @@
 # How it works
 
-Recast and Relay are built on one principle: **nothing important moves without being seen, approved and checked.** Software now acts for us, moving our plans between apps and writing code beside us. Both are fast, and both quietly get things wrong. These products put a person in the loop at the one moment that matters, then check the result against reality instead of trusting a "success" message.
+Recast and Syncord are built on one principle: **nothing important moves without being seen, approved and checked.** Software now acts for us, moving our plans between apps and writing code beside us. Both are fast, and both quietly get things wrong. These products put a person in the loop at the one moment that matters, then check the result against reality instead of trusting a "success" message.
 
 - [Recast](#recast): for everyone's everyday context
-- [Relay](#relay): for teams of developers and coding agents
+- [Syncord](#relay): for teams of developers and coding agents
 - [What we will not do](#what-we-will-not-do)
 - [How we know](#how-we-know)
 
@@ -48,7 +48,7 @@ Google Calendar, Outlook Calendar, Gmail drafts, Google Tasks, Google Docs, GitH
 
 ---
 
-## Relay
+## Syncord
 
 ### The problem
 Teams now ship code written by several people and several AI agents at once. Each change passes its own tests, Git merges them without a conflict, and the project still breaks, because the changes only fail **together**. One agent renames a field in an API; another, in a different file, still reads the old name. Today that is found after it has shipped. And an agent saying "tests pass" is not proof.
@@ -57,16 +57,16 @@ Teams now ship code written by several people and several AI agents at once. Eac
 
 1. **Tasks and contracts.** Work is split into tasks, each with a scope (the files it may change). Interfaces that tasks share are versioned **contracts**, and only people accept them.
 2. **Guarded agents.** Each agent works in its own copy of the project. A guard in front of the agent stops edits outside its task's scope, and if the guard itself fails, the edit is stopped, not allowed.
-3. **Relay's own evidence.** Relay runs the checks itself. What an agent reports about its tests does not count.
+3. **Syncord's own evidence.** Syncord runs the checks itself. What an agent reports about its tests does not count.
 4. **Check Together.** Tasks that share a contract are rehearsed **combined**, on a separate copy of the project as it is now, with the project's checks and each task's checks.
-5. **Explain.** When a rehearsal is blocked, Relay traces the failure to its cause and labels how sure it is: **confirmed** (which change removed what, which line still reads it, which test fails), **likely**, or **unknown**. It never guesses, and the explanation never changes the decision.
-6. **A person approves.** Only a person applies. Relay checks again that nothing moved since the rehearsal: not the project, not the tasks, not the contracts.
+5. **Explain.** When a rehearsal is blocked, Syncord traces the failure to its cause and labels how sure it is: **confirmed** (which change removed what, which line still reads it, which test fails), **likely**, or **unknown**. It never guesses, and the explanation never changes the decision.
+6. **A person approves.** Only a person applies. Syncord checks again that nothing moved since the rehearsal: not the project, not the tasks, not the contracts.
 
 ### Where it runs
 - **Agents.** Claude Code today, through a guard hook and coordination tools. Agents cannot approve or integrate, by design.
 - **Command line.** `relay integrate together T-api,T-ui` rehearses and reports. It never applies.
 - **Browser IDE.** Live shared editing, presence, line history ("who wrote this line, when, and with which edit"), an agent panel where every request becomes a scoped task, and a Coordination view of what needs a person.
-- **VS Code extension.** Join a Relay project from your own checkout, with the same Coordination view and Check Together.
+- **VS Code extension.** Join a Syncord project from your own checkout, with the same Coordination view and Check Together.
 
 All of these call one service, so they cannot disagree about a result.
 
@@ -76,7 +76,7 @@ All of these call one service, so they cannot disagree about a result.
 
 - **Act without showing you.** Every write is previewed first.
 - **Guess silently.** Assumptions are labelled; conflicts are shown with their sources; explanations say "likely" or "unknown" when that is the truth.
-- **Call a write "done" because the app said OK.** Recast reads it back; Relay runs the checks itself.
+- **Call a write "done" because the app said OK.** Recast reads it back; Syncord runs the checks itself.
 - **Send something twice.** A lost answer is checked, never resent.
 - **Let software approve itself.** Agents cannot accept contracts, approve tasks or apply changes. A saved workflow cannot skip approval.
 
@@ -91,7 +91,7 @@ Each claim on these pages is backed by automated tests that run on every change 
 | Recast creates, deduplicates and undoes a Google Calendar event | The real Google Calendar, by hand, on a test account |
 | Recast's other connectors | Stand-ins that behave like each app's real API |
 | Recast in the browser and on the desktop | Real Chromium and real Electron, driven by automated tests on Linux; Mac and Windows builds made by CI |
-| Relay blocks a combined break before it reaches the project | Real Claude Code agents: 6 of 6 trials blocked, and without Relay 6 of 6 shipped the break |
-| Relay explains the cause correctly | Real Claude Code agents: "confirmed" and accurate in 3 of 3 trials, judged by running the code |
+| Syncord blocks a combined break before it reaches the project | Real Claude Code agents: 6 of 6 trials blocked, and without Syncord 6 of 6 shipped the break |
+| Syncord explains the cause correctly | Real Claude Code agents: "confirmed" and accurate in 3 of 3 trials, judged by running the code |
 
 What is not proven yet: use by independent people and teams. That is the next milestone.
